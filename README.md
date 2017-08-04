@@ -17,13 +17,29 @@ All things, whether living or nonliving, have some common traits:
 * Mass - A scalar
 * Volume - A vector, existing in two dimensions
 * Hardness - A scalar
-* Roughness - A scalar
 
 # Living Things
 Living things have additional properties:
-* Health - This is a scalar. As time progresses, this will always fall. Once it reaches 0, the thing dies and is removed from existence entirely. Different organisms have different ways of replenishing their health.
+* Health - This is a scalar. As time progresses, this will always fall. Once it reaches 0, the thing dies. Different organisms have different ways of replenishing their health.
 
-Living things can also reproduce with other living things, under criteria specific to a species. Organisms of any health can reproduce, so dying things can still send their "genes" on to the next generation. Different species reproduce in different ways. For example, plants simply spread a number of seeds in available spaces. Of course, this means that plants spawned against walls can potentially die.
+Living things can also reproduce with other living things, under criteria specific to a species. Organisms of any health can reproduce, so dying things can still send their "genes" on to the next generation. Different species reproduce in different ways. For example, plants simply spread a number of seeds in available spaces. Of course, this means that plants spawned against walls can potentially die out.
+
+# Plants
+In addition to producing seeds, plants can evolve *emissions* of arbitrary elements or compounds. These can potentially be poisonous to mammals.
+
+# Mammals
+There are a few kinds of mammals in Quoids (will be defined later!). Some eat plants, some eat only other mammals, and some can eat both. 
+
+Mammals are capable of comprehending *relationships* with other things. Different species can understand certain kinds of relationships. For example, animals that are commonly prey for the most part only understand that they can eat plants, and that they should flee predators.
+
+Mammals have *speed*, and *strength*. More strength means that the mammal can break things of greater hardness. When it comes to killing things within range (always 1 space for hand-to-hand/paw combat), strength can be inflicted as direct damage to another mammal's health, potentially killing it.
+
+Mammals have *vision*, which determines the amount of spaces they can see relative to their own position at the start of any turn. The more vision, the more decisions an individual will make. Better vision can evolve within mammals.
+
+Mammals can be poisoned by certain elements or compounds. If a poison hits, then it will subtract a significant amount of health from the mammal.
+
+# Death
+When a living thing dies, it becomes a *dead* version of whatever it was. The carcass's mass will deteriorate at a fixed rate, which is randomly determined at start-up. The nutritional value of the carcass depends on how much mass is left.
 
 # Quoids
 Think *caveman*.
