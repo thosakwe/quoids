@@ -42,4 +42,10 @@ Mammals can be poisoned by certain elements or compounds. If a poison hits, then
 When a living thing dies, it becomes a *dead* version of whatever it was. The carcass's mass will deteriorate at a fixed rate, which is randomly determined at start-up. The nutritional value of the carcass depends on how much mass is left.
 
 # Quoids
-Think *caveman*.
+Think *caveman*. A Quoid is a type of mammal with an enhanced capacity for decision-making.
+
+Quoids have enhanced social capabilities, somewhat like humans. They can comprehend levels of *trust* within relationships, which tend to increase the more turns another Quoid is seen within the range of vision.
+
+Quoids also have *emotion*, a scalar which can affect their tendencies to carry out certain actions.
+
+Quoids' decisions can be influenced by a variety of factors, which can potentially lead to societies forming. For example, a Quoid may choose to move closer to another Quoid, depending on the level of trust in their relationship, and effectively follow them around. I imagine that sizeable groups could form out of this. Quoids also consciously choose whether to reproduce with other Quoids, depending on the level of trust and emotion between them. This varies depending on the Quoid, and also genetically.
