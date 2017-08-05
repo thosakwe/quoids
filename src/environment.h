@@ -20,7 +20,12 @@ private:
 
     // Plant reproduction probability
     int plant_default_durability_;
+    int plant_default_life_span_;
+    int plant_default_range_;
     int plant_default_reproduction_likelihood_;
+
+    void findSeeds(void *, void *, std::vector<void *> *);
+
 public:
     Environment(int, int);
 
@@ -36,7 +41,17 @@ public:
 
     int get_plant_default_durability();
 
-    void decide(int turn_number);
+    int get_plant_default_life_span();
+
+    int get_plant_default_range();
+
+    void Decide(int turn_number);
+
+    Tile ***Grid(const Position &, int);
+
+    void KillPlant(void *);
+
+    void KillSeed(void *);
 };
 
 

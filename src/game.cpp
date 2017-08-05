@@ -32,6 +32,8 @@ void Game::start(int width, int height) {
 
         for (int x = 0; x < width; x++) {
             Tile *tile = new Tile();
+            tile->position.x = x;
+            tile->position.y = y;
             row->push_back(tile);
 
             int spawn = rand() % 10 + 1;
@@ -43,8 +45,13 @@ void Game::start(int width, int height) {
                 switch (type) {
                     case 0:
                     case 1:
-                        tile->thing = new Plant(rand() % environment_->get_plant_default_reproduction_likelihood() + 1,
-                                                rand() % environment_->get_plant_default_durability() + 1);
+                        tile->thing = new Plant(
+                                turn_number_,
+                                rand() % environment_->get_plant_default_life_span() + 1,
+                                rand() % environment_->get_plant_default_reproduction_likelihood() + 1,
+                                rand() % environment_->get_plant_default_durability() + 1,
+                                rand() % environment_->get_plant_default_range() + 1
+                        );
                         //std::cout << "Plant at (" << x << ", " << y << ")" << std::endl;
                         break;
                     default:
@@ -65,7 +72,7 @@ void Game::turn() {
     turn_number_++;
 
     // Decide the weather, etc.
-    environment_->decide(turn_number_);
+    environment_->Decide(turn_number_);
 
     // Let everything take a turn.
     int alive = 0;
@@ -89,6 +96,7 @@ void Game::turn() {
 
     if (alive == 0) {
         std::cout << "Everything has died!" << std::endl;
+        std::cout << "This environment sustained itself for " << turn_number_ << " turn(s)." << std::endl;
         done_ = true;
         return;
     }
@@ -114,10 +122,12 @@ void Game::turn() {
                     LivingThing *livingThing = (LivingThing *) thing;
 
                     if (livingThing->get_living_thing_type() == LivingThingType::kPlant) {
-                        std::cout << "P";
+                        std::cout << "p";
+                    } else if (livingThing->get_living_thing_type() == LivingThingType::kSeed) {
+                        std::cout << "s";
                     }
                 }
-            } else std::cout << "_";
+            } else std::cout << ".";
         }
 
         std::cout << std::endl;

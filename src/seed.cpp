@@ -25,63 +25,60 @@ Plant *Seed::get_second_parent() {
     return second_parent_;
 }
 
-Plant *Seed::grow() {
+Plant *Seed::grow(int turn_number) {
     if (second_parent_ == nullptr) {
         // Parthenogenesis. Produce an exact copy of the parent.
-        return new Plant(parent_->get_reproduction_likelihood(), parent_->get_durability());
+        // Each quality can potentially mutate, and increase.
+        return new Plant(
+                turn_number,
+                PossibleMutationInt(parent_->get_life_span(), 1),
+                PossibleMutationInt(parent_->get_reproduction_likelihood(), rand() % 10 + 1),
+                PossibleMutationInt(parent_->get_durability(), 1),
+                PossibleMutationInt(parent_->get_range(), 1),
+                parent_);
     } else {
         // Likelihood of reproduction is "genetic," and thus random.
         // It will either be the first/second parent's likelihood, something
         // in between, or the second parent's likelihood plus 1.
         //
         // Eventually, plants can evolve that are more likely to reproduce.
-        int type = rand() % 4;
-        int likelihood, durability;
+        int likelihood, durability, range, life_span;
 
-        switch (type) {
-            case 0:
-                likelihood = parent_->get_reproduction_likelihood();
-                break;
-            case 1:
-                likelihood = second_parent_->get_reproduction_likelihood();
-                break;
-            case 2:
-                likelihood =
-                        rand() % parent_->get_reproduction_likelihood() + second_parent_->get_reproduction_likelihood();
-                break;
-            default:
-                likelihood = second_parent_->get_reproduction_likelihood() + 1;
-        }
-
+        likelihood = GeneticInt(parent_->get_reproduction_likelihood(), second_parent_->get_reproduction_likelihood());
 
         // Same concept for durability, A.K.A. the amount of time a plant can live without water.
-        type = rand() % 4;
+        durability = GeneticInt(parent_->get_durability(), second_parent_->get_durability());
 
-        switch (type) {
-            case 0:
-                durability = parent_->get_durability();
-                break;
-            case 1:
-                durability = second_parent_->get_durability();
-                break;
-            case 2:
-                durability =
-                        rand() % parent_->get_durability() + second_parent_->get_durability();
-                break;
-            default:
-                durability = second_parent_->get_durability() + 1;
-        }
+        // And range.
+        range = GeneticInt(parent_->get_range(), second_parent_->get_range());
 
-        return new Plant(likelihood, durability);
+        life_span = GeneticInt(parent_->get_life_span(), second_parent_->get_life_span());
+
+        // Each quality can potentially mutate
+        return new Plant(
+                turn_number,
+                PossibleMutationInt(life_span, 1),
+                PossibleMutationInt(likelihood, rand() % 10 + 1),
+                PossibleMutationInt(durability, 1),
+                PossibleMutationInt(range, 1),
+                parent_
+        );
     }
 }
 
-void Seed::decide(int turn_number, Tile *tile, Environment *) {
-    // TODO: Die after a certain number of turns without water
-
+void Seed::decide(int turn_number, Tile *tile, Environment *environment) {
     if ((turn_number - birth_) >= incubation_length_) {
-        tile->thing = grow();
-        std::cout << "Grew into a plant after " << incubation_length_ << " turn(s)!" << std::endl;
+        tile->thing = grow(turn_number);
+        environment->KillSeed(this);
+        //std::cout << "Grew into a plant after " << incubation_length_ << " turn(s)!" << std::endl;
+    } else if (environment->get_raining()) {
+        thirst_start_ = -1;
+    } else if (thirst_start_ != -1 && ((turn_number - thirst_start_) >= parent_->get_durability())) {
+        // Die of a lack of water
+        tile->thing = nullptr;
+        environment->KillSeed(this);
+    } else if (!environment->get_raining()) {
+        thirst_start_ = turn_number;
     }
 }
 

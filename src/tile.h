@@ -7,7 +7,12 @@
 
 #include "thing.h"
 
+struct Position {
+    int x, y;
+};
+
 struct Tile {
+    Position position;
     Thing* thing;
 };
 
