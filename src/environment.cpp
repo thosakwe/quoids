@@ -37,7 +37,7 @@ bool Environment::get_raining() {
 void Environment::decide(int turn_number) {
     if (raining_) {
         // End the rain, if we have been
-        if ((turn_number - rain_start_) <= rain_start_) {
+        if ((turn_number - rain_start_) >= rain_length_) {
             raining_ = false;
             std::cout << "It has stopped raining after " << rain_length_ << " turn(s)." << std::endl;
         }

@@ -81,15 +81,6 @@ void Game::turn() {
                 if (thing->get_type() == ThingType::kLiving) {
                     alive++;
                     LivingThing *livingThing = (LivingThing *) thing;
-
-                    if (livingThing->get_living_thing_type() == LivingThingType::kPlant) {
-                        Plant *plant = (Plant *) livingThing;
-
-                        if (environment_->get_raining()) {
-                            plant->water_level_++;
-                        }
-                    }
-
                     livingThing->decide(turn_number_, tile, environment_);
                 }
             }

@@ -21,7 +21,7 @@ void Plant::decide(int turn_number, Tile *tile, Environment *environment) {
     if (!environment->get_raining()) {
         if (thirst_start == -1) {
             thirst_start = turn_number;
-        } else if ((turn_number - thirst_start) >= durability_) {
+        } else if (thirst_start != -1 && (turn_number - thirst_start) >= durability_) {
             // TODO: Environment kill plant
             tile->thing = nullptr;
             //std::cout << "No water!!! Dead after " << durability_ << " turn(s)!!!" << std::endl;
@@ -31,6 +31,8 @@ void Plant::decide(int turn_number, Tile *tile, Environment *environment) {
         std::cout << "Don't let me die of thirst! " << (durability_ - (turn_number - thirst_start))
                   << " turn(s) until I die." << std::endl;
        */
+    } else {
+        thirst_start = -1;
     }
 }
 
