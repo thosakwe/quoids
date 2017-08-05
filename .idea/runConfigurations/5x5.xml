@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="5x5" type="CMakeRunConfiguration" factoryName="Application" singleton="true" PROGRAM_PARAMS="5" PASS_PARENT_ENVS_2="true" PROJECT_NAME="quoids" TARGET_NAME="quoids" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="quoids" RUN_TARGET_NAME="quoids">
+    <envs />
+    <method />
+  </configuration>
+</component>
